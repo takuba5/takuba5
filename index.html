@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Takuba5 - portfolio, programowanie, cyberbezpieczeństwo, projekty IT.">
+<meta name="keywords" content="takuba5, programowanie, cyberbezpieczeństwo, portfolio, IT, takuba, takuba15">
+  <title>Takuba5 - Portfolio</title>
+
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-0:#0b0f14;       
+      --bg-1:#0f1620;       
+      --bg-2:#121a26;       
+      --tx-1:#e6eef8;       
+      --tx-2:#a9b5c3;      
+      --pri:#7c5cff;        
+      --pri-2:#00e0ff;       
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --err:#ef4444;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.02);
+      --max-w:1150px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+      color:var(--tx-1); background:var(--bg-0); overflow-x:hidden;
+    }
+
+    
+    .bg-animated{
+      position:fixed; inset:0; z-index:-2; filter: blur(60px) saturate(120%);
+      background: radial-gradient(1200px 800px at 10% 20%, rgba(124,92,255,.22), transparent 60%),
+                  radial-gradient(1000px 800px at 90% 10%, rgba(0,224,255,.18), transparent 55%),
+                  radial-gradient(900px 700px at 80% 90%, rgba(34,197,94,.14), transparent 60%),
+                  radial-gradient(900px 900px at 20% 80%, rgba(255,99,132,.12), transparent 55%),
+                  linear-gradient(160deg, var(--bg-0), var(--bg-1));
+      animation: float 18s ease-in-out infinite alternate;
+    }
+    @keyframes float{
+      0%{transform:translate3d(0,0,0)}
+      50%{transform:translate3d(0,-12px,0)}
+      100%{transform:translate3d(0,8px,0)}
+    }
+
+   
+    .nav{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(140%) blur(10px);
+      background:linear-gradient( to bottom, rgba(12,16,24,.9), rgba(12,16,24,.65));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav-inner{max-width:var(--max-w); margin:0 auto; padding:14px 20px; display:flex; align-items:center; gap:14px}
+    .brand{font-weight:800; letter-spacing:.4px}
+    .spacer{flex:1}
+    .menu{display:flex; gap:8px}
+    .menu a{
+      position:relative; display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px;
+      color:var(--tx-1); text-decoration:none; font-weight:600; opacity:.9; transition:opacity .2s ease, transform .2s ease;
+    }
+    .menu a:hover{opacity:1; transform:translateY(-1px)}
+    .menu a .dot{width:6px; height:6px; border-radius:50%; background:transparent; box-shadow:0 0 0 0 rgba(124,92,255,0); transition:all .25s}
+    .menu a.active{opacity:1}
+    .menu a.active .dot{background:var(--pri); box-shadow:0 0 12px 2px rgba(124,92,255,.8)}
+    .menu a .underline{
+      position:absolute; left:12px; right:12px; bottom:4px; height:2px; border-radius:2px; background:linear-gradient(90deg, var(--pri), var(--pri-2));
+      transform:scaleX(0); transform-origin:left; transition:transform .35s ease;
+    }
+    .menu a:hover .underline, .menu a.active .underline{transform:scaleX(1)}
+
+    
+    section{padding:86px 18px}
+    .container{max-width:var(--max-w); margin:0 auto}
+    h1,h2,h3{line-height:1.2; margin:0 0 14px}
+    h2{font-size:clamp(24px, 2.6vw, 34px)}
+    p{color:var(--tx-2); line-height:1.7}
+
+
+    .hero{padding:120px 18px 80px; position:relative}
+    @media (max-width: 960px){
+  .hero-visual{min-height:200px}
+}
+
+    .hero .container{display:grid; grid-template-columns: 1.1fr .9fr; gap:28px; align-items:center}
+    .badge{
+      display:inline-flex; gap:8px; align-items:center; padding:8px 12px; border-radius:999px; font-weight:600; color:#dfe8ff;
+      background:linear-gradient( to right, rgba(124,92,255,.28), rgba(0,224,255,.22)); border:1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+    }
+    .title{font-size:clamp(36px, 6.2vw, 64px); font-weight:900; letter-spacing:-.02em; margin-top:12px}
+    .subtitle{font-size:clamp(16px, 2.2vw, 20px); color:var(--tx-2)}
+    .cta{display:flex; gap:12px; margin-top:26px}
+    .btn{
+      appearance:none; border:0; border-radius:999px; padding:12px 18px; font-weight:700; cursor:pointer; text-decoration:none; color:white;
+      background:linear-gradient( 135deg, var(--pri), var(--pri-2)); box-shadow:0 6px 20px rgba(124,92,255,.35);
+      transition: transform .15s ease, box-shadow .2s ease, filter .2s;
+    }
+    .btn:hover{transform:translateY(-2px); filter:saturate(110%); box-shadow:0 10px 26px rgba(124,92,255,.45)}
+    .btn.alt{background:transparent; border:1px solid rgba(255,255,255,.14); box-shadow:var(--shadow); color:var(--tx-1)}
+
+    .hero-visual{
+      background:radial-gradient(60% 60% at 50% 50%, rgba(124,92,255,.25), transparent),
+                 linear-gradient( to bottom right, rgba(15,22,32,.6), rgba(15,22,32,.2));
+      border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:16px; position:relative; overflow:hidden;
+      min-height:280px; box-shadow: var(--shadow);
+    }
+    
+    #particles{position:absolute; inset:0; width:100%; height:100%; opacity:.6}
+
+   
+    .card{background:linear-gradient(to bottom right, rgba(255,255,255,.02), rgba(255,255,255,.01)); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow)}
+
+ 
+    .skills{display:grid; grid-template-columns: repeat(2, 1fr); gap:18px}
+    .skill{padding:16px; border:1px solid rgba(255,255,255,.06); border-radius:16px; background:rgba(8,12,18,.6)}
+    .skill h3{font-size:16px; margin-bottom:10px}
+    .bar{height:10px; background:rgba(255,255,255,.08); border-radius:999px; overflow:hidden}
+    .bar > span{display:block; height:100%; background:linear-gradient(90deg, var(--pri), var(--pri-2)); width:0}
+    .pill{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); font-weight:600}
+    .skills-inline{display:flex; flex-wrap:wrap; gap:10px}
+
+    
+    .projects{display:grid; grid-template-columns: repeat(2, 1fr); gap:18px}
+    .project{border-radius:18px; overflow:hidden; border:1px solid rgba(255,255,255,.06); background:rgba(255,255,255,.02); box-shadow:var(--shadow)}
+    .project img{width:100%; height:220px; object-fit:cover; display:block; filter:saturate(105%)}
+    .project .content{padding:16px}
+
+   
+    .socials{display:flex; gap:12px; flex-wrap:wrap}
+    .social-btn{display:inline-flex; align-items:center; gap:10px; padding:10px 14px ; border-radius:14px; border:1px solid rgba(255,255,255,.08); text-decoration:none; color:var(--tx-1); background:rgba(255,255,255,.02); font-weight:700}
+    .social-btn:hover{transform:translateY(-2px)}
+    .social-btn svg{width:20px; height:20px}
+
+    
+    footer {
+  padding: 40px 18px 60px;
+  color: var(--tx-2);
+  text-align: center;
+  margin: auto;
+}
+.glow {
+  font-size: 64px;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+
+  
+  text-shadow: 
+    0 0 10px #6c63ff,
+    0 0 20px #6c63ff,
+    0 0 40px #6c63ff,
+    0 0 80px #4834d4,
+    0 0 160px #4834d4;
+
+ 
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 
+      0 0 10px #6c63ff,
+      0 0 20px #6c63ff,
+      0 0 40px #6c63ff,
+      0 0 80px #4834d4,
+      0 0 160px #4834d4;
+  }
+  to {
+    text-shadow: 
+      0 0 20px #8e7dff,
+      0 0 40px #8e7dff,
+      0 0 80px #8e7dff,
+      0 0 160px #6c63ff,
+      0 0 320px #6c63ff;
+  }
+}
+
+
+
+
+
+   
+    @media (max-width: 960px){
+      .hero .container{grid-template-columns: 1fr}
+    }
+    @media (max-width: 780px){
+      .projects{grid-template-columns:1fr}
+      .skills{grid-template-columns:1fr}
+      .menu{overflow:auto}
+    }
+
+   
+    .reveal{opacity:0; transform:translateY(10px); transition:opacity .6s ease, transform .6s ease}
+    .reveal.visible{opacity:1; transform:translateY(0)}
+  </style>
+</head>
+<body>
+  <div class="bg-animated" aria-hidden="true"></div>
+
+  
+  <nav class="nav">
+    <div class="nav-inner">
+      <h1 class="glow">Takuba5</h1>
+
+      <div class="spacer"></div>
+      <div class="menu" id="menu">
+        <a href="#start"><span class="dot"></span> Start <span class="underline"></span></a>
+        <a href="#o-mnie"><span class="dot"></span> O mnie <span class="underline"></span></a>
+        <a href="#umiejetnosci"><span class="dot"></span> Umiejętności <span class="underline"></span></a>
+        <a href="#projekty"><span class="dot"></span> Projekty <span class="underline"></span></a>
+        <a href="#media"><span class="dot"></span> Media <span class="underline"></span></a>
+      </div>
+    </div>
+  </nav>
+
+  
+  <header id="start" class="hero">
+    <div class="container">
+      <div>
+        <span class="badge">Junior Developer • Cybersecurity Adept</span>
+        <h1 class="title">Takuba5</h1>
+        <p class="subtitle">Tworzę ładne,eleganckie i responsywne strony internetowe. Interesuję się również cyberbezpieczeństwem i programowaniem. </p>
+        <div class="cta">
+          <a class="btn" href="#projekty">Zobacz projekty</a>
+          
+        </div>
+      </div>
+      <div class="hero-visual">
+        <canvas id="particles"></canvas>
+      </div>
+    </div>
+  </header>
+
+ 
+  <section id="o-mnie">
+    <div class="container">
+      <h2>O mnie</h2>
+      <div class="card reveal">
+        <p>Jestem pasjonatem cyberbezpieczeństwa i programowania, tworzącym bezpieczne, wydajne aplikacje oraz narzędzia. Skupiam się na analizie kodu, testach bezpieczeństwa i automatyzacji procesów, a po godzinach eksperymentuję z exploitami, skryptami i technologiami sieciowymi.</p>
+      </div>
+    </div>
+  </section>
+
+
+<section id="umiejetnosci">
+  <div class="container">
+    <h2>Umiejętności</h2>
+    <div class="skills">
+      <div class="skill reveal">
+        <h3>Kali Linux</h3>
+        <div class="bar" aria-label="Kali Linux 40%">
+          <span style="width:40%"></span>
+        </div>
+      </div>
+      <div class="skill reveal">
+        <h3>Python (Automatyzacja / Skanery)</h3>
+        <div class="bar" aria-label="Python 50%">
+          <span style="width:50%"></span>
+        </div>
+      </div>
+      <div class="skill reveal">
+        <h3>OSINT</h3>
+        <div class="bar" aria-label="OSINT 25%">
+          <span style="width:25%"></span>
+        </div>
+      </div>
+      <div class="skill reveal">
+        <h3>Penetration Testing</h3>
+        <div class="bar" aria-label="Pentesting 35%">
+          <span style="width:35%"></span>
+        </div>
+      </div>
+      <div class="skill reveal">
+        <h3>Networking</h3>
+        <div class="bar" aria-label="Networking 65%">
+          <span style="width:65%"></span>
+        </div>
+      </div>
+      <div class="skill reveal">
+        <h3>HTML+CSS</h3>
+        <div class="bar" aria-label="HTML+CSS 60%">
+          <span style="width:60%"></span>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:16px"></div>
+    <div class="skills-inline reveal" aria-label="Znaczniki technologii">
+      <span class="pill">Kali Linux</span>
+      <span class="pill">Windows</span>
+      <span class="pill">Metasploit</span>
+      <span class="pill">Nmap</span>
+      <span class="pill">Wireshark</span>
+      <span class="pill">VS code</span>
+      <span class="pill">IntelliJ IDEA</span>
+      <span class="pill">PyCharm</span>
+      
+    </div>
+  </div>
+</section>
+
+
+ 
+  <section id="projekty">
+    <div class="container">
+      <h2>Projekty</h2>
+      <div class="projects">
+        <article class="project reveal">
+          <img src="skaner2.jpg" alt="Zrzut ekranu projektu 1" loading="lazy">
+          <div class="content">
+            <h3>Easy network scanner</h3>
+            <p>Prosty skaner sieci w Python.</p>
+            <a class="btn" href="https://github.com/takuba5/Easyportscanner" target="_blank" rel="noreferrer noopener">Zobacz więcej</a>
+          </div>
+        </article>
+
+        <article class="project reveal">
+          <img src="" alt=" " loading="lazy">
+          <div class="content">
+            <h3>Wkrotce...</h3>
+            <p></p>
+            <a class="btn" href="https://github.com/takuba5/" target="_blank" rel="noreferrer noopener">Zobacz więcej</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="media">
+    <div class="container">
+      <h2>Media</h2>
+      <div class="card reveal">
+        <p>Zapraszam do śledzenia mojej pracy i kontaktu poprzez poniższe kanały.</p>
+        <div class="socials">
+          <a class="social-btn" href="https://github.com/takuba5/" target="_blank" rel="noreferrer noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58 0-.29-.01-1.06-.02-2.08-3.34.73-4.04-1.61-4.04-1.61-.55-1.41-1.34-1.79-1.34-1.79-1.09-.75.08-.74.08-.74 1.21.08 1.85 1.25 1.85 1.25 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.67-.31-5.47-1.33-5.47-5.92 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.54.12-3.22 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.68.24 2.92.12 3.22.77.84 1.24 1.91 1.24 3.22 0 4.6-2.8 5.61-5.48 5.92.43.37.81 1.1.81 2.22 0 1.6-.02 2.89-.02 3.28 0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"/></svg>
+            GitHub
+          </a>
+          <a class="social-btn" href="https://youtube.com/@takuba5" target="_blank" rel="noreferrer noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3.01 3.01 0 0 0-2.1-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.4.6a3.01 3.01 0 0 0-2.1 2.1C0 8 0 12 0 12s0 4 .5 5.8a3.01 3.01 0 0 0 2.1 2.1c1.8.6 9.4.6 9.4.6s7.6 0 9.4-.6a3.01 3.01 0 0 0 2.1-2.1C24 16 24 12 24 12s0-4-.5-5.8ZM9.5 15.5v-7L16 12l-6.5 3.5Z"/></svg>
+            YouTube
+          </a>
+          <a class="social-btn" href="https://discord.com/users/takuba5" target="_blank" rel="noreferrer noopener" aria-label="Discord">
+  <svg viewBox="0 0 71 55" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.4154C45.5603 0.3982 45.468 0.4408 
+             45.4212 0.5293C44.7963 1.6824 44.105 3.1074 43.6209 4.2998C38.1637 3.5539 32.7345 
+             3.5539 27.3892 4.2998C26.905 3.1074 26.1886 1.6824 25.5788 0.5293C25.532-0.0015 
+             25.4397-0.0441 25.3473 0.0159C20.2735 1.2916 15.4208 2.8389 10.8955 4.8978C10.8536 
+             4.915 10.8159 4.9422 10.7895 4.9771C1.57795 18.7316 -0.943561 32.1443 0.293441 
+             45.3914C0.299805 45.4789 0.347296 45.5627 0.419105 45.6176C6.71683 50.2081 12.7866 
+             52.7249 18.7485 54.2496C18.8412 54.2731 18.9376 54.2331 18.9934 54.1504C20.2293 
+             52.3783 21.341 50.525 22.3072 48.6009C22.3672 48.4845 22.3114 48.3475 22.1903 
+             48.2959C20.2948 47.4451 18.5109 46.4323 16.819 45.2809C16.6831 45.1862 16.6735 
+             44.9818 16.8086 44.8743C17.1746 44.5907 17.5406 44.3071 17.8969 44.0122C17.9631 
+             43.9547 18.0584 43.9436 18.1342 43.985C30.1152 49.7168 41.9716 49.7168 53.8875 
+             43.985C53.9633 43.9405 54.0586 43.9516 54.1276 44.0091C54.4839 44.3071 54.8499 
+             44.5907 55.2159 44.8743C55.351 44.9818 55.3414 45.1862 55.2055 45.2809C53.5136 
+             46.4482 51.7297 47.4451 49.8242 48.2866C49.7031 48.3383 49.6503 48.4789 49.7103 
+             48.5954C50.691 50.5195 51.8027 52.3728 53.0085 54.1449C53.0609 54.2276 53.1573 
+             54.2676 53.25 54.2441C59.2198 52.7249 65.2895 50.2081 71.5872 45.6176C71.659 
+             45.5627 71.7065 45.4789 71.7129 45.3914C73.1079 30.0791 68.2147 16.7757 
+             60.1968 4.9771C60.1733 4.9422 60.1409 4.915 60.1045 4.8978Z"/>
+  </svg>
+  Discord: takuba5
+</a>
+
+         
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Takuba5. Wszelkie prawa zastrzeżone.
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const links = Array.from(document.querySelectorAll('.menu a'));
+    const sections = links.map(a => document.querySelector(a.getAttribute('href')));
+
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        const idx = sections.indexOf(entry.target);
+        if(entry.isIntersecting){
+          links.forEach(l=>l.classList.remove('active'));
+          if(links[idx]) links[idx].classList.add('active');
+        }
+      })
+    },{ rootMargin:'-40% 0px -55% 0px', threshold:[0, .2, .5, 1] });
+    sections.forEach(s => s && observer.observe(s));
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const revObs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); revObs.unobserve(e.target); } });
+    }, {threshold: .15});
+    revealEls.forEach(el=>revObs.observe(el));
+
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let W, H, particles;
+
+    const DPR = Math.min(2, window.devicePixelRatio || 1);
+    function resize(){
+      const rect = canvas.getBoundingClientRect();
+      W = rect.width; H = rect.height; canvas.width = W * DPR; canvas.height = H * DPR; ctx.scale(DPR,DPR);
+    }
+    function createParticles(){
+      const count = Math.max(30, Math.floor(W * H / 12000));
+      particles = new Array(count).fill(0).map(()=>({
+        x: Math.random()*W,
+        y: Math.random()*H,
+        vx:(Math.random()-.5)*.6,
+        vy:(Math.random()-.5)*.6,
+        r: Math.random()*2 + .6,
+        a: Math.random()*.5 + .25
+      }));
+    }
+    function step(){
+      ctx.clearRect(0,0,W,H);
+      ctx.fillStyle = 'rgba(12, 18, 28, .25)';
+      ctx.fillRect(0,0,W,H);
+      for(let i=0;i<particles.length;i++){
+        const p=particles[i];
+        for(let j=i+1;j<particles.length;j++){
+          const q=particles[j];
+          const dx=p.x-q.x, dy=p.y-q.y, d=dx*dx+dy*dy;
+          if(d<140*140){
+            const o = 1 - (d/(140*140));
+            ctx.strokeStyle = `rgba(124,92,255,${o*.25})`;
+            ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke();
+          }
+        }
+      }
+      particles.forEach(p=>{
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<0||p.x>W) p.vx*=-1; if(p.y<0||p.y>H) p.vy*=-1;
+        const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*3);
+        grad.addColorStop(0,'rgba(0,224,255,.9)');
+        grad.addColorStop(1,'rgba(124,92,255,0)');
+        ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+      });
+      requestAnimationFrame(step);
+    }
+    const init = ()=>{ resize(); createParticles(); step(); };
+    window.addEventListener('resize', ()=>{ resize(); createParticles(); });
+    init();
+
+    links.forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const href = a.getAttribute('href');
+        const el = document.querySelector(href);
+        if(!el) return;
+        e.preventDefault();
+        window.scrollTo({ top: el.offsetTop - 64, behavior:'smooth' });
+      })
+    })
+  </script>
+</body>
+</html>
